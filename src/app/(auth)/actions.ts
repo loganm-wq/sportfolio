@@ -41,7 +41,7 @@ export async function signUp(email: string, password: string, fullName: string) 
   redirect('/dashboard');
 }
 
-export async function signOut(_formData?: FormData) {
+export async function signOut() {
   const supabase = createClient();
   await supabase.auth.signOut();
   revalidatePath('/', 'layout');

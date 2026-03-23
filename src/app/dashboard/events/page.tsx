@@ -110,7 +110,7 @@ export default function EventsPage() {
   return (
     <main className="max-w-7xl mx-auto px-6 py-8">
       <h1 className="text-2xl font-bold text-white mb-1">Events</h1>
-      <p className="text-[#444] text-sm mb-8">Races, competitions, and tournaments you've entered.</p>
+      <p className="text-[#444] text-sm mb-8">Races, competitions, and tournaments you&apos;ve entered.</p>
 
       {/* Events list */}
       <section className="mb-10">
