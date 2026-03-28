@@ -36,6 +36,7 @@ export type UserProfile = {
   id: string;
   email: string;
   full_name: string | null;
+  onboarding_completed: boolean;
   created_at: string;
   updated_at: string;
 };
@@ -77,6 +78,7 @@ export type UserProfileInsert = {
   id: string;
   email: string;
   full_name?: string | null;
+  onboarding_completed?: boolean;
   created_at?: string;
   updated_at?: string;
 };
