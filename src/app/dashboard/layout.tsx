@@ -11,13 +11,19 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
   if (!user) redirect('/login');
 
-  const { data: profile } = await supabase
-    .from('users_profiles')
-    .select('onboarding_completed')
-    .eq('id', user.id)
-    .single();
+  // Only fetch profile if the user was created recently (accounts > 5 min old never need onboarding check)
+  const createdAt = new Date(user.created_at);
+  const isNewUser = Date.now() - createdAt.getTime() < 5 * 60 * 1000;
 
-  const needsOnboarding = !profile?.onboarding_completed;
+  let needsOnboarding = false;
+  if (isNewUser) {
+    const { data: profile } = await supabase
+      .from('users_profiles')
+      .select('onboarding_completed')
+      .eq('id', user.id)
+      .single();
+    needsOnboarding = !profile?.onboarding_completed;
+  }
 
   return (
     <div className="min-h-screen bg-[#0a0a0a]">

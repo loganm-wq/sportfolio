@@ -10,6 +10,7 @@ const TABS = [
   { label: 'Sports', href: '/dashboard/sports' },
   { label: 'Events', href: '/dashboard/events' },
   { label: 'Insights', href: '/dashboard/insights' },
+  { label: 'Profile', href: '/dashboard/profile' },
 ];
 
 export default function DashboardNav({ userEmail }: { userEmail?: string }) {

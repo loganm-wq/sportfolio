@@ -4,6 +4,14 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 
+function validatePassword(password: string): string | null {
+  if (password.length < 8) return 'Password must be at least 8 characters.';
+  if (!/\d/.test(password)) return 'Password must contain at least one number.';
+  if (!/[!@#$%^&*()_+\-=\[\]{}|;':",.<>?\/]/.test(password))
+    return 'Password must contain at least one special character.';
+  return null;
+}
+
 export async function signIn(email: string, password: string) {
   const supabase = createClient();
 
@@ -18,6 +26,9 @@ export async function signIn(email: string, password: string) {
 }
 
 export async function signUp(email: string, password: string, fullName: string) {
+  const passwordError = validatePassword(password);
+  if (passwordError) return { error: passwordError };
+
   const supabase = createClient();
 
   const { data, error } = await supabase.auth.signUp({
